@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:
+    container_name: my-dbtest
+    ports:
+      - 54322:5432
+    environment:
+      - POSTGRES_USER=sarun
+      - POSTGRES_PASSWORD=123456789
+    image: postgres:latest
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pg-admintest
+    ports:
+      - 8080:8080
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=sarun-pu@rmutp.ac.th
+      - PGADMIN_DEFAULT_PASSWORD=123456789
+    image: dpage/pgadmin4:latest
+
+  strapi:
+    container_name: my-apptest
+    ports:
+      - 1337:1337
+    environment:
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=192.168.56.1
+      - DATABASE_PORT=54322
+      - DATABASE_NAME=sarun
+      - DATABASE_USERNAME=sarun
+      - DATABASE_PASSWORD=123456789
+      - DATABASE_SSL=false
+    image: naskio/strapi:latest
+
+    ##docker-compose up อัพ down ปิด
